@@ -8,14 +8,17 @@ Permanência API é uma aplicação web desenvolvida em Rust para gerenciar um a
 - **Listar Livros**: Endpoint para listar todos os livros cadastrados, ordenados pela data de cadastro.
 
 ## Estrutura do Projeto
+
+```
 ├── src/ 
-│ ├── livros.rs # Lógica para operações na API e no banco de dados
-│ ├── main.rs # Ponto de entrada da aplicação 
-│ ├── schema.rs # Definições do esquema do banco de dados 
-├── migrations/ # Diretório de migrações do banco de dados 
-├── .env # Configurações de ambiente (URL do banco de dados) 
-├── Cargo.toml # Configurações e dependências do projeto 
-├── diesel.toml # Configurações do Diesel ORM
+│   ├── livros.rs       # Lógica para operações na API e no banco de dados
+│   ├── main.rs         # Ponto de entrada da aplicação 
+│   ├── schema.rs       # Definições do esquema do banco de dados 
+├── migrations/         # Diretório de migrações do banco de dados 
+├── .env                # Configurações de ambiente (URL do banco de dados) 
+├── Cargo.toml          # Configurações e dependências do projeto 
+├── diesel.toml         # Configurações do Diesel ORM
+```
 
 ## Endpoints
 
@@ -29,10 +32,11 @@ Permanência API é uma aplicação web desenvolvida em Rust para gerenciar um a
     "autor": "Nome do Autor",
     "ano_publicacao": 2025
   }
-- **Resposta:**
-   Sucesso: Livro Cadastrado | ID: <id> | Nome: <nome>
-   Erro: Mensagem de erro de validação ou do banco de dados.
 
+- **Resposta:**
+  ```json 
+    "Sucesso": "Livro Cadastrado | ID: <id> | Nome: <nome>",
+    "Erro": "Mensagem de erro de validação ou do banco de dados."
 
 ## Dependências
 - **Axum** - Framework web assíncrono.
