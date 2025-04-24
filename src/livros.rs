@@ -90,7 +90,6 @@ pub async fn cadastrar_livro(input: Json<LivroInput>)
             return Err(Json(e.to_string()))
         }
     }
-
 }
 
 pub async fn listar_livros()
@@ -111,5 +110,4 @@ pub async fn listar_livros()
             return Err(Json(e.to_string()))
         }
     }
-
 }
