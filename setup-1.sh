@@ -4,15 +4,16 @@
 set -e
 
 echo "==> Instalando Rust..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 
 echo "==> Instalando Diesel CLI..."
-cargo install diesel_cli --no-default-features --features postgres
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/diesel-rs/diesel/releases/latest/download/diesel_cli-installer.sh | sh
+#cargo install diesel_cli --no-default-features --features postgres
 
-echo "==> Clonando repositório..."
-git clone --branch pratica --single-branch https://github.com/HadsonRamalho/permanencia.git
-cd permanencia || exit
+#echo "==> Clonando repositório..."
+#git clone --branch pratica --single-branch https://github.com/HadsonRamalho/permanencia.git
+#cd permanencia || exit
 
 # Verificar existência do arquivo diesel.toml e corrigir se necessário
 if [ ! -f diesel.toml ]; then
