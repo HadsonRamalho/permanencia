@@ -6,7 +6,7 @@
 set -e
 
 echo "==> Instalando Rust..."
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 
 echo "==> Instalando Diesel CLI..."
@@ -34,7 +34,7 @@ echo "==> Iniciando serviço do PostgreSQL..."
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 #sudo systemctl status postgresql
-
+source "$HOME/.cargo/env"
 echo "==> Configurando usuário postgres..."
 echo "==> Copie e cole os seguintes passos:"
 echo "1 => psql"
