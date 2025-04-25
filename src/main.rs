@@ -1,22 +1,13 @@
-use axum::{
-    Router,
-    routing::{post, get}
-};
+use axum::Router;
 use dotenvy::dotenv;
 use std::env;
 use diesel::prelude::*;
-use crate::livros::{cadastrar_livro, listar_livros};
-
-mod livros;
-pub mod schema;
 
 const PORTA:u32 = 3030;
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new()
-        .route("/cadastrar_livro", post(cadastrar_livro))
-        .route("/listar_livros", get(listar_livros));
+    let app = Router::new();
 
     let uri: &str = &format!("0.0.0.0:{}", PORTA);
     let listener = tokio::net::TcpListener::bind(uri).await.unwrap();
