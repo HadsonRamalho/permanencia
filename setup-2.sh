@@ -21,3 +21,13 @@ diesel setup
 
 echo "==> Rodando o projeto..."
 cargo run
+
+# source "$HOME/.cargo/env"
+# diesel setup
+# diesel migration run
+# sudo nano /var/lib/pgsql/data/pg_hba.conf
+#  > Alterar última coluna para 'trust'
+# systemctl restart postgresql
+#  > alterar diesel.toml para o nome do usuário
+# diesel setup
+# diesel migration run
