@@ -1,5 +1,7 @@
 ### PARTE 2
 
+#chmod +x setup-2.sh
+
 # Verifica e edita o arquivo pg_hba.conf
 PG_HBA_PATH=$(sudo find / -name "pg_hba.conf" 2>/dev/null | head -n 1)
 

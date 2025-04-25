@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#chmod +x setup-1.sh
+
 # Parar script se algum comando falhar
 set -e
 
@@ -18,7 +20,7 @@ curl --proto '=https' --tlsv1.2 -LsSf https://github.com/diesel-rs/diesel/releas
 # Verificar existência do arquivo diesel.toml e corrigir se necessário
 if [ ! -f diesel.toml ]; then
     echo "==> Arquivo diesel.toml não encontrado em $(pwd)."
-    echo "     Por favor, verifique se ele está em outro local e mova ou crie o symlink."
+    echo "     Por favor, verifique se ele está em outro local."
     exit 1
 fi
 
