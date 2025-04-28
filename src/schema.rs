@@ -10,5 +10,6 @@ diesel::table! {
         ano_publicacao -> Int4,
         data_cadastro -> Timestamp,
         data_atualizacao -> Nullable<Timestamp>,
+        categorias -> Array<Nullable<Text>>,
     }
 }

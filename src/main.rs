@@ -1,8 +1,8 @@
 use axum::{
-    Router,
-    routing::{post, get}
+    routing::{delete, get, patch, post}, Router
 };
 use dotenvy::dotenv;
+use livros::{atualizar_livro, buscar_livro_autor, buscar_livro_categoria, buscar_livro_id, deletar_livro};
 use std::env;
 use diesel::prelude::*;
 use crate::livros::{cadastrar_livro, listar_livros};
@@ -16,12 +16,17 @@ const PORTA:u32 = 3030;
 async fn main() {
     let app = Router::new()
         .route("/cadastrar_livro", post(cadastrar_livro))
-        .route("/listar_livros", get(listar_livros));
+        .route("/listar_livros", get(listar_livros))
+        .route("/atualizar_livro", patch(atualizar_livro))
+        .route("/deletar_livro/", delete(deletar_livro))
+        .route("/buscar_livro_id/", get(buscar_livro_id))
+        .route("/buscar_livro_autor/", get(buscar_livro_autor))
+        .route("/buscar_livro_categoria/", get(buscar_livro_categoria));
 
     let uri: &str = &format!("0.0.0.0:{}", PORTA);
     let listener = tokio::net::TcpListener::bind(uri).await.unwrap();
     
-    println!("API rodando em {}", uri);
+    println!("API rodando em http://localhost:3030/ (ou {})", uri);
 
     axum::serve(listener, app).await.unwrap();
 }
