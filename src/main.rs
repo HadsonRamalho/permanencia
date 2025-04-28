@@ -6,7 +6,8 @@ use livros::{atualizar_livro, buscar_livro_autor, buscar_livro_categoria, buscar
 use std::env;
 use diesel::prelude::*;
 use crate::livros::{cadastrar_livro, listar_livros};
-
+// use tower_http::cors::{Any, CorsLayer};
+// axum::http::Method
 mod livros;
 pub mod schema;
 
@@ -22,6 +23,15 @@ async fn main() {
         .route("/buscar_livro_id/", get(buscar_livro_id))
         .route("/buscar_livro_autor/", get(buscar_livro_autor))
         .route("/buscar_livro_categoria/", get(buscar_livro_categoria));
+
+    /*
+    .layer(
+        CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods(vec![Method::POST, Method::PUT, Method::PATCH, Method::DELETE, Method::GET]) 
+            .allow_headers(Any)
+    )
+    */
 
     let uri: &str = &format!("0.0.0.0:{}", PORTA);
     let listener = tokio::net::TcpListener::bind(uri).await.unwrap();

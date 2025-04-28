@@ -239,8 +239,6 @@ pub struct CategoriaInput{
 
 pub async fn buscar_livro_categoria(Query(input): Query<CategoriaInput>)
     -> Result<(StatusCode, Json<Vec<Livro>>), (StatusCode, Json<String>)>{
-    use crate::schema::livros::dsl::*; 
-
     let conexao = &mut criar_conexao();
 
     let categoria = input.categoria.to_string();
