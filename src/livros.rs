@@ -248,7 +248,7 @@ pub async fn buscar_livro_categoria(Query(input): Query<CategoriaInput>)
     let query = sql_query("
         SELECT * FROM livros 
         WHERE EXISTS (
-            SELECT 1 FROM unnest(categorias) AS cat WHERE cat LIKE $1
+            SELECT 1 FROM unnest(categorias) AS categoria WHERE categoria LIKE $1
         )
     ")
     .bind::<diesel::sql_types::Text, _>(format!("%{}%", categoria));
@@ -266,3 +266,30 @@ pub async fn buscar_livro_categoria(Query(input): Query<CategoriaInput>)
 
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct TituloInput{
+    titulo: String
+}
+
+pub async fn buscar_livro_titulo(Query(input): Query<TituloInput>)
+    -> Result<(StatusCode, Json<Vec<Livro>>), (StatusCode, Json<String>)>{
+    use crate::schema::livros::dsl::*; 
+
+    let conexao = &mut criar_conexao();
+
+    let titulo_livro = input.titulo.to_string();
+    let titulo_livro = format!("%{}%", titulo_livro);
+
+    let res: Result<Vec<Livro>, diesel::result::Error> = livros
+        .filter(nome.like(titulo_livro))
+        .get_results(conexao);
+
+    match res{
+        Ok(livro) => {
+            return Ok((StatusCode::OK, Json(livro)))
+        },
+        Err(e) => {
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, Json(e.to_string())))
+        }
+    }
+}

@@ -2,7 +2,7 @@ use axum::{
     routing::{delete, get, patch, post}, Router
 };
 use dotenvy::dotenv;
-use livros::{atualizar_livro, buscar_livro_autor, buscar_livro_categoria, buscar_livro_id, deletar_livro};
+use livros::{atualizar_livro, buscar_livro_autor, buscar_livro_categoria, buscar_livro_id, buscar_livro_titulo, deletar_livro};
 use std::env;
 use diesel::prelude::*;
 use crate::livros::{cadastrar_livro, listar_livros};
@@ -22,7 +22,8 @@ async fn main() {
         .route("/deletar_livro/", delete(deletar_livro))
         .route("/buscar_livro_id/", get(buscar_livro_id))
         .route("/buscar_livro_autor/", get(buscar_livro_autor))
-        .route("/buscar_livro_categoria/", get(buscar_livro_categoria));
+        .route("/buscar_livro_categoria/", get(buscar_livro_categoria))
+        .route("/buscar_livro_titulo/", get(buscar_livro_titulo));
 
     /*
     .layer(
