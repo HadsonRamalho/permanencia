@@ -71,18 +71,21 @@ impl LivroInput{
             campos_faltando.push("Categorias");
         }
         
-        if campos_faltando.len() > 0{
+        if campos_faltando.len() > 1{
             return Err(Json(format!("Erro ao cadastrar o livro. Os campos [{}] deveriam estar preenchidos.", campos_faltando.join(", "))));
+        }
+        if campos_faltando.len() == 1{
+            return Err(Json(format!("Erro ao cadastrar o livro. O campo [{}] deveria estar preenchido.", campos_faltando.join(", "))));
         }
         return Ok(())
     }
 }
 
 pub async fn cadastrar_livro(input: Json<LivroInput>)
-    -> Result<Json<String>, Json<String>>{
-    use crate::schema::livros::dsl::*;
+    -> Result<(StatusCode, Json<String>), (StatusCode, Json<String>)>{
+    use crate::schema::livros::dsl::*;    
     if let Err(mensagem_erro) = input.0.validar_campos() {
-        return Err(mensagem_erro);
+       return Err((StatusCode::BAD_REQUEST, mensagem_erro));
     }
 
     let livro = input.0;
@@ -101,10 +104,10 @@ pub async fn cadastrar_livro(input: Json<LivroInput>)
     
     match res{
         Ok(_livro) => {
-            return Ok(Json(mensagem_retorno))
+            return Ok((StatusCode::OK, Json(mensagem_retorno)))
         },
         Err(e) => {
-            return Err(Json(e.to_string()))
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, Json(e.to_string())))
         }
     }
 }
